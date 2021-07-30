@@ -8,9 +8,10 @@ export default {
          text:String,
          color:String
     },
+    emits:['toggle-add-task'],
     methods: {
         onClick(){
-            console.log("button clicked");
+            this.$emit("toggle-add-task");
         }
     },
 }

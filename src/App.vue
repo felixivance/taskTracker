@@ -1,6 +1,9 @@
 <template>
   <div class="container">
-     <Header title="Task Tracker"/>
+     <Header title="Task Tracker" @toggle-add-task="toggleAddTask" :showAddTask="showAddTask"/>
+     <div class="" v-show="showAddTask">
+       <AddTask @add-task="addTask"/>
+     </div>
      <Tasks @delete-task="deleteTask" @toggle-reminder="setReminder" :tasks="tasks" />
   </div>
 </template>
@@ -8,28 +11,38 @@
 <script>
 import Header from './components/Header.vue';
 import Tasks from './components/Tasks.vue'
+import AddTask from './components/AddTask.vue'
 
 
 export default {
   name: 'App',
   components: {
-    Header,Tasks
+    Header,Tasks,AddTask
     
   },
   data(){
     return {
-      tasks:[]
+      tasks:[],
+      showAddTask:false,
+    
     }
   },
   methods: {
     deleteTask(id){
-        console.log("taks ",id)
+
         if(confirm('Are you sure, you want to delete? ')){
           this.tasks = this.tasks.filter((task)=> task.id !=id);
         }
     },
     setReminder(id){
-      console.log(id)
+      this.tasks = this.tasks.map((task)=> task.id == id ? {...task, reminder:!task.reminder} : task)
+    },
+    addTask(task){
+      // this.tasks.push(task);
+      this.tasks = [...this.tasks,task]
+    },
+    toggleAddTask(){
+      this.showAddTask = !this.showAddTask 
     }
   },
   created(){
