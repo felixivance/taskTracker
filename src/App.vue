@@ -47,21 +47,24 @@ export default {
     },
   async setReminder(id){
       // this.tasks = this.tasks.map((task)=> task.id == id ? {...task, reminder:!task.reminder} : task)
-      const taskToUpdate = this.fetchTask(id);
-      const updateTask = {...taskToUpdate, reminder:!taskToUpdate.reminder}
-      console.log(updateTask);
-      const res = await fetch(`api/tasks/${id}`,{
-              method:'PUT',
-              headers:{
-                'Content-type':'application/json',
-              },
-              body: JSON.stringify(updateTask)
-            });
+      const taskToUpdate = await this.fetchTask(id);
+      console.log("apa 2")
+      console.log(taskToUpdate);
+      
+      // const updateTask = {...taskToUpdate, reminder:!taskToUpdate.reminder}
+      // console.log(updateTask);
+      // const res = await fetch(`api/tasks/${id}`,{
+      //         method:'PUT',
+      //         headers:{
+      //           'Content-type':'application/json',
+      //         },
+      //         body: JSON.stringify(updateTask)
+      //       });
 
-            const data = await res.json();
-            console.log(data);
+      //       const data = await res.json();
+      //       console.log(data);
           
-            res.status ===200 ?  this.fetchTasks() : alert("error updating task")
+      //       res.status ===200 ?  this.fetchTasks() : alert("error updating task")
     },
     async addTask(task){
       // this.tasks.push(task);
@@ -88,6 +91,8 @@ export default {
     async fetchTask(id){
       const res = await fetch(`api/tasks/${id}`);
       const data = await res.json();
+      console.log("apa");
+      console.log(data);
       return  data;
     }
   },
