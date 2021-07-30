@@ -1,7 +1,7 @@
 <template>
   <div class="container">
      <Header title="Task Tracker"/>
-     <Tasks :tasks="tasks" />
+     <Tasks @delete-task="deleteTask" @toggle-reminder="setReminder" :tasks="tasks" />
   </div>
 </template>
 
@@ -22,7 +22,15 @@ export default {
     }
   },
   methods: {
-    
+    deleteTask(id){
+        console.log("taks ",id)
+        if(confirm('Are you sure, you want to delete? ')){
+          this.tasks = this.tasks.filter((task)=> task.id !=id);
+        }
+    },
+    setReminder(id){
+      console.log(id)
+    }
   },
   created(){
     this.tasks =[
@@ -30,10 +38,10 @@ export default {
         id:1, text:'Doctors Appointment',day:'March 1st at 2:30pm', reminder:true
       },
       {
-        id:1, text:'Dentist Appointment',day:'March 1st at 2:30pm', reminder:true
+        id:2, text:'Dentist Appointment',day:'March 1st at 2:30pm', reminder:true
       },
       {
-        id:1, text:'Lawyers Appointment',day:'March 1st at 2:30pm', reminder:true
+        id:3, text:'Lawyers Appointment',day:'March 1st at 2:30pm', reminder:false
       }
     ];
   }
